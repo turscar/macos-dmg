@@ -1,18 +1,32 @@
-name: 'The name of your action here'
-description: 'Provide a description here'
-author: 'Your name or organization here'
+name: 'macos-dmg'
+description: 'Package an app to a .dmg'
+author: 'Turscar'
+
+# Add your action's branding here. This will appear on the GitHub Marketplace.
+branding:
+  icon: 'disc'
+  color: 'blue'
 
 # Define your inputs here.
 inputs:
-  milliseconds:
-    description: 'Your input description here'
+  app:
+    description: 'Path to Your.app'
     required: true
-    default: '1000'
-
-# Define your outputs here.
-outputs:
-  time:
-    description: 'Your output description here'
+  dmg:
+    description: 'Path to generate .dmg file'
+    required: false
+  title:
+    description: 'Title of generated .dmg file'
+    required: false
+  icon-template:
+    description: 'Template .icns file to generate .dmg icon'
+    required: false
+  icon:
+    description: 'Icon file for .dmg icon'
+    required: false
+  background:
+    description: 'Path to background image'
+    required: false
 
 runs:
   using: node20

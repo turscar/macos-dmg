@@ -1,6 +1,6 @@
 name: 'macos-dmg'
 description: 'Package an app to a .dmg'
-author: 'Turscar'
+author: 'Turscar https://github.com/turscar'
 
 # Add your action's branding here. This will appear on the GitHub Marketplace.
 branding:

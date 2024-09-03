@@ -5,9 +5,9 @@ import fs from 'node:fs'
 import path from 'node:path'
 
 import * as core from '@actions/core'
-import exec from '@actions/exec'
-import glob from '@actions/glob'
-import cache from '@actions/cache'
+import * as exec from '@actions/exec'
+import { hashFiles } from '@actions/glob'
+import * as cache from '@actions/cache'
 import plist from 'plist'
 import appdmg from 'appdmg'
 
@@ -88,7 +88,7 @@ export async function run() {
     const appIcon = appInfo.CFBundleIconFile
     let composedIconPath = dmgIcon
     if (composedIconPath === '' && appIcon) {
-      getIcon(appIcon, baseDiskIconPath, appPath)
+      await getIcon(appIcon, baseDiskIconPath, appPath)
       composedIconPath = 'dmg-icon.icns'
     }
 
@@ -149,7 +149,7 @@ export async function run() {
 
 async function getIcon(appIcon, baseDiskIconPath, appPath) {
   const paths = ['dmg-icon.icns']
-  const iconHash = await glob.hashFiles(`${appIcon}\n${baseDiskIconPath}`)
+  const iconHash = await hashFiles(`${appIcon}\n${baseDiskIconPath}`)
   const hashKey = `dmg-icon-${iconHash}`
   const cacheKey = await cache.restoreCache(paths, hashKey)
   if (cacheKey) {

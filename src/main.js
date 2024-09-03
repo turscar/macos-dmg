@@ -31,10 +31,10 @@ export async function run() {
     }
 
     if (baseDiskIconPath === '') {
-      baseDiskIconPath = `${__dirname}/disk-icon.icns`
+      baseDiskIconPath = `${__dirname}/../disk-icon.icns`
 
       if (background === '') {
-        background = `${__dirname}/dmg-background.png`
+        background = `${__dirname}/../dmg-background.png`
       }
     }
 
@@ -104,7 +104,7 @@ export async function run() {
         //
         // Use transparent background and `background-color` option when this is fixed:
         // https://github.com/LinusU/node-appdmg/issues/135
-        background,
+        background: background,
         'icon-size': 160,
         format: dmgFormat,
         filesystem: dmgFilesystem,

@@ -103,10 +103,12 @@ export default async function composeIcon(
   )
   core.debug('done all the composes')
   if (!composedIcon[biggestPossibleIconType]) {
+    core.debug('need BIGGER icon')
     // Make sure the highest-resolution variant is generated
     const largestAppIcon = Object.values(appIcon).sort(
       (a, b) => Buffer.byteLength(b) - Buffer.byteLength(a)
     )[0]
+    core.debug('got here, about to compose it')
     await baseComposeIcon(
       biggestPossibleIconType,
       largestAppIcon,
@@ -114,6 +116,7 @@ export default async function composeIcon(
       composedIcon
     )
   }
-
+  core.debug('done biggest icon')
   await fs.writeFile(destinationPath, icns.format(composedIcon))
+  core.debug(`written to ${destinationPath}`)
 }

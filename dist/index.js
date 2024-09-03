@@ -68738,10 +68738,12 @@ async function composeIcon(
   )
   _actions_core__WEBPACK_IMPORTED_MODULE_2__.debug('done all the composes')
   if (!composedIcon[biggestPossibleIconType]) {
+    _actions_core__WEBPACK_IMPORTED_MODULE_2__.debug('need BIGGER icon')
     // Make sure the highest-resolution variant is generated
     const largestAppIcon = Object.values(appIcon).sort(
       (a, b) => Buffer.byteLength(b) - Buffer.byteLength(a)
     )[0]
+    _actions_core__WEBPACK_IMPORTED_MODULE_2__.debug('got here, about to compose it')
     await baseComposeIcon(
       biggestPossibleIconType,
       largestAppIcon,
@@ -68749,8 +68751,9 @@ async function composeIcon(
       composedIcon
     )
   }
-
+  _actions_core__WEBPACK_IMPORTED_MODULE_2__.debug('done biggest icon')
   await node_fs_promises__WEBPACK_IMPORTED_MODULE_1___default().writeFile(destinationPath, icns_lib__WEBPACK_IMPORTED_MODULE_5__.format(composedIcon))
+  _actions_core__WEBPACK_IMPORTED_MODULE_2__.debug(`written to ${destinationPath}`)
 }
 
 __webpack_async_result__();

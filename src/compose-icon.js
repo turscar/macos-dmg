@@ -25,7 +25,10 @@ async function baseComposeIcon(type, appIcon, mountIcon, composedIcon) {
   appIcon = gm(appIcon)
   core.debug('done gmifying')
 
-  let sz = appIcon.size
+  let sz = appIcon.size({}, (err, val) => {
+    core.debug(`err=${err}`)
+    core.debug(`val=${val}`)
+  })
   core.debug('got sz')
   core.debug(`sz=${sz}`)
   const [appIconSize, mountIconSize] = await Promise.all([

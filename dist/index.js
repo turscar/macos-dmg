@@ -68660,7 +68660,10 @@ async function baseComposeIcon(type, appIcon, mountIcon, composedIcon) {
   appIcon = gm(appIcon)
   _actions_core__WEBPACK_IMPORTED_MODULE_2__.debug('done gmifying')
 
-  let sz = appIcon.size
+  let sz = appIcon.size({}, (err, val) => {
+    _actions_core__WEBPACK_IMPORTED_MODULE_2__.debug(`err=${err}`)
+    _actions_core__WEBPACK_IMPORTED_MODULE_2__.debug(`val=${val}`)
+  })
   _actions_core__WEBPACK_IMPORTED_MODULE_2__.debug('got sz')
   _actions_core__WEBPACK_IMPORTED_MODULE_2__.debug(`sz=${sz}`)
   const [appIconSize, mountIconSize] = await Promise.all([

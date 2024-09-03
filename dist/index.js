@@ -68850,7 +68850,7 @@ async function run() {
           stdout += data.toString()
         }
       }
-      const code = await _actions_exec__WEBPACK_IMPORTED_MODULE_3___default().exec(
+      const code = await _actions_exec__WEBPACK_IMPORTED_MODULE_3__.exec(
         '/usr/bin/plutil',
         ['-convert', 'xml1', '-o', '-', infoPlistPath],
         options
@@ -68879,7 +68879,7 @@ async function run() {
     const appIcon = appInfo.CFBundleIconFile
     let composedIconPath = dmgIcon
     if (composedIconPath === '' && appIcon) {
-      getIcon(appIcon, baseDiskIconPath, appPath)
+      await getIcon(appIcon, baseDiskIconPath, appPath)
       composedIconPath = 'dmg-icon.icns'
     }
 
@@ -68940,9 +68940,9 @@ async function run() {
 
 async function getIcon(appIcon, baseDiskIconPath, appPath) {
   const paths = ['dmg-icon.icns']
-  const iconHash = await _actions_glob__WEBPACK_IMPORTED_MODULE_4___default().hashFiles(`${appIcon}\n${baseDiskIconPath}`)
+  const iconHash = await (0,_actions_glob__WEBPACK_IMPORTED_MODULE_4__.hashFiles)(`${appIcon}\n${baseDiskIconPath}`)
   const hashKey = `dmg-icon-${iconHash}`
-  const cacheKey = await _actions_cache__WEBPACK_IMPORTED_MODULE_5___default().restoreCache(paths, hashKey)
+  const cacheKey = await _actions_cache__WEBPACK_IMPORTED_MODULE_5__.restoreCache(paths, hashKey)
   if (cacheKey) {
     _actions_core__WEBPACK_IMPORTED_MODULE_2__.debug('retrieved icon from cache')
     return paths[0]

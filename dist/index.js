@@ -68748,10 +68748,17 @@ async function composeIcon(
   _actions_core__WEBPACK_IMPORTED_MODULE_2__.debug('done all the composes')
   if (!composedIcon[biggestPossibleIconType]) {
     _actions_core__WEBPACK_IMPORTED_MODULE_2__.debug('need BIGGER icon')
+    Object.keys(appIcon).forEach(type => {
+      _actions_core__WEBPACK_IMPORTED_MODULE_2__.debug(`appICon type = ${type}`)
+    })
+    Object.keys(baseDiskIcons).forEach(type => {
+      _actions_core__WEBPACK_IMPORTED_MODULE_2__.debug(`baseIcon type=${type}`)
+    })
     // Make sure the highest-resolution variant is generated
     const largestAppIcon = Object.values(appIcon).sort(
       (a, b) => Buffer.byteLength(b) - Buffer.byteLength(a)
     )[0]
+    _actions_core__WEBPACK_IMPORTED_MODULE_2__.debug(`largesAppIcon size=${Buffer.byteLength(largestAppIcon)}`)
     _actions_core__WEBPACK_IMPORTED_MODULE_2__.debug('got here, about to compose it')
     await baseComposeIcon(
       biggestPossibleIconType,

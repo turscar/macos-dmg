@@ -68715,6 +68715,9 @@ async function composeIcon(
     await _actions_io__WEBPACK_IMPORTED_MODULE_4__.cp(baseIconPath, destinationPath)
     return
   }
+  _actions_core__WEBPACK_IMPORTED_MODULE_2__.debug(
+    `in composeIcon appIconPath=${appIconPath} baseIconPath=${baseIconPath} destinationPath=${destinationPath}`
+  )
   const baseDiskIcons = filterMap(
     icns_lib__WEBPACK_IMPORTED_MODULE_5__.parse(await node_fs_promises__WEBPACK_IMPORTED_MODULE_1___default().readFile(baseIconPath)),
     ([key]) => icns_lib__WEBPACK_IMPORTED_MODULE_5__.isImageType(key)
@@ -68723,6 +68726,7 @@ async function composeIcon(
     icns_lib__WEBPACK_IMPORTED_MODULE_5__.parse(await node_fs_promises__WEBPACK_IMPORTED_MODULE_1___default().readFile(appIconPath)),
     ([key]) => icns_lib__WEBPACK_IMPORTED_MODULE_5__.isImageType(key)
   )
+  _actions_core__WEBPACK_IMPORTED_MODULE_2__.debug('dissected app and base icons')
   const composedIcon = {}
   await Promise.all(
     Object.entries(appIcon).map(async ([type, icon]) => {
@@ -68732,7 +68736,7 @@ async function composeIcon(
       _actions_core__WEBPACK_IMPORTED_MODULE_2__.warning(`there is no base image for this type: ${type}`)
     })
   )
-
+  _actions_core__WEBPACK_IMPORTED_MODULE_2__.debug('done all the composes')
   if (!composedIcon[biggestPossibleIconType]) {
     // Make sure the highest-resolution variant is generated
     const largestAppIcon = Object.values(appIcon).sort(

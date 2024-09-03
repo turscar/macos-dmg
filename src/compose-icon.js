@@ -80,6 +80,9 @@ export default async function composeIcon(
     await io.cp(baseIconPath, destinationPath)
     return
   }
+  core.debug(
+    `in composeIcon appIconPath=${appIconPath} baseIconPath=${baseIconPath} destinationPath=${destinationPath}`
+  )
   const baseDiskIcons = filterMap(
     icns.parse(await fs.readFile(baseIconPath)),
     ([key]) => icns.isImageType(key)
@@ -88,6 +91,7 @@ export default async function composeIcon(
     icns.parse(await fs.readFile(appIconPath)),
     ([key]) => icns.isImageType(key)
   )
+  core.debug('dissected app and base icons')
   const composedIcon = {}
   await Promise.all(
     Object.entries(appIcon).map(async ([type, icon]) => {
@@ -97,7 +101,7 @@ export default async function composeIcon(
       core.warning(`there is no base image for this type: ${type}`)
     })
   )
-
+  core.debug('done all the composes')
   if (!composedIcon[biggestPossibleIconType]) {
     // Make sure the highest-resolution variant is generated
     const largestAppIcon = Object.values(appIcon).sort(

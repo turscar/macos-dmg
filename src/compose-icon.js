@@ -21,11 +21,13 @@ const biggestPossibleIconType = 'ic10'
 
 async function baseComposeIcon(type, appIcon, mountIcon, composedIcon) {
   core.debug(`entering baseComposeIcon type=${type}`)
-  core.debug(`appIcon=${appIcon} mountIcon=${mountIcon}`)
   mountIcon = gm(mountIcon)
   appIcon = gm(appIcon)
   core.debug('done gmifying')
 
+  let sz = appIcon.size
+  core.debug('got sz')
+  core.debug(`sz=${sz}`)
   const [appIconSize, mountIconSize] = await Promise.all([
     promisify(appIcon.size.bind(appIcon))(),
     promisify(appIcon.size.bind(mountIcon))()

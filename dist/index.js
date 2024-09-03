@@ -68656,11 +68656,13 @@ const biggestPossibleIconType = 'ic10'
 
 async function baseComposeIcon(type, appIcon, mountIcon, composedIcon) {
   _actions_core__WEBPACK_IMPORTED_MODULE_2__.debug(`entering baseComposeIcon type=${type}`)
-  _actions_core__WEBPACK_IMPORTED_MODULE_2__.debug(`appIcon=${appIcon} mountIcon=${mountIcon}`)
   mountIcon = gm(mountIcon)
   appIcon = gm(appIcon)
   _actions_core__WEBPACK_IMPORTED_MODULE_2__.debug('done gmifying')
 
+  let sz = appIcon.size
+  _actions_core__WEBPACK_IMPORTED_MODULE_2__.debug('got sz')
+  _actions_core__WEBPACK_IMPORTED_MODULE_2__.debug(`sz=${sz}`)
   const [appIconSize, mountIconSize] = await Promise.all([
     (0,node_util__WEBPACK_IMPORTED_MODULE_0__.promisify)(appIcon.size.bind(appIcon))(),
     (0,node_util__WEBPACK_IMPORTED_MODULE_0__.promisify)(appIcon.size.bind(mountIcon))()

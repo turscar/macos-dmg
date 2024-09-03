@@ -159,7 +159,8 @@ async function getIcon(appIcon, baseDiskIconPath, appPath) {
   core.info('generating icon')
   const appIconName = appIcon.replace(/\.icns/, '')
   return composeIcon(
-    path.join(appPath, 'Contents/Resources', `${appIconName}.icns`, paths[0]),
-    baseDiskIconPath
+    path.join(appPath, 'Contents/Resources', `${appIconName}.icns`),
+    baseDiskIconPath,
+    paths[0]
   )
 }

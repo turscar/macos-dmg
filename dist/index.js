@@ -68964,8 +68964,9 @@ async function getIcon(appIcon, baseDiskIconPath, appPath) {
   _actions_core__WEBPACK_IMPORTED_MODULE_2__.info('generating icon')
   const appIconName = appIcon.replace(/\.icns/, '')
   return (0,_compose_icon__WEBPACK_IMPORTED_MODULE_8__/* ["default"] */ .Z)(
-    node_path__WEBPACK_IMPORTED_MODULE_1___default().join(appPath, 'Contents/Resources', `${appIconName}.icns`, paths[0]),
-    baseDiskIconPath
+    node_path__WEBPACK_IMPORTED_MODULE_1___default().join(appPath, 'Contents/Resources', `${appIconName}.icns`),
+    baseDiskIconPath,
+    paths[0]
   )
 }
 

@@ -68914,6 +68914,11 @@ async function run() {
     const dmgPath = node_path__WEBPACK_IMPORTED_MODULE_1___default().join(destinationPath, dmgFilename)
 
     const appIcon = appInfo.CFBundleIconFile
+
+    _actions_core__WEBPACK_IMPORTED_MODULE_2__.debug(
+      `appIcon=${appIcon} appPath=${appPath} infoPlistPath=${infoPlistPath}`
+    )
+
     let composedIconPath = dmgIcon
     if (composedIconPath === '' && appIcon) {
       await getIcon(appIcon, __nccwpck_require__.ab + "disk-icon.icns", appPath)

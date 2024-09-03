@@ -86,6 +86,11 @@ export async function run() {
     const dmgPath = path.join(destinationPath, dmgFilename)
 
     const appIcon = appInfo.CFBundleIconFile
+
+    core.debug(
+      `appIcon=${appIcon} appPath=${appPath} infoPlistPath=${infoPlistPath}`
+    )
+
     let composedIconPath = dmgIcon
     if (composedIconPath === '' && appIcon) {
       await getIcon(appIcon, baseDiskIconPath, appPath)

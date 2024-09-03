@@ -68656,14 +68656,16 @@ const biggestPossibleIconType = 'ic10'
 
 async function baseComposeIcon(type, appIcon, mountIcon, composedIcon) {
   _actions_core__WEBPACK_IMPORTED_MODULE_2__.debug(`entering baseComposeIcon type=${type}`)
+  _actions_core__WEBPACK_IMPORTED_MODULE_2__.debug(`appIcon=${appIcon} mountIcon=${mountIcon}`)
   mountIcon = gm(mountIcon)
   appIcon = gm(appIcon)
+  _actions_core__WEBPACK_IMPORTED_MODULE_2__.debug('done gmifying')
 
   const [appIconSize, mountIconSize] = await Promise.all([
     (0,node_util__WEBPACK_IMPORTED_MODULE_0__.promisify)(appIcon.size.bind(appIcon))(),
     (0,node_util__WEBPACK_IMPORTED_MODULE_0__.promisify)(appIcon.size.bind(mountIcon))()
   ])
-
+  _actions_core__WEBPACK_IMPORTED_MODULE_2__.debug('got sizes')
   // Change the perspective of the app icon to match the mount drive icon
   appIcon = appIcon
     .out('-matte')
@@ -68683,7 +68685,7 @@ async function baseComposeIcon(type, appIcon, mountIcon, composedIcon) {
 
   const temporaryAppIconPath = (0,tempy__WEBPACK_IMPORTED_MODULE_7__/* .temporaryFile */ .Ew)({ extension: 'png' })
   await (0,node_util__WEBPACK_IMPORTED_MODULE_0__.promisify)(appIcon.write.bind(appIcon))(temporaryAppIconPath)
-
+  _actions_core__WEBPACK_IMPORTED_MODULE_2__.debug(`wrote temporary icon to ${temporaryAppIconPath}`)
   // Compose the two icons
   const iconGravityFactor = mountIconSize.height * 0.063
   mountIcon = mountIcon

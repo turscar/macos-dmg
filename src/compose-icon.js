@@ -21,14 +21,16 @@ const biggestPossibleIconType = 'ic10'
 
 async function baseComposeIcon(type, appIcon, mountIcon, composedIcon) {
   core.debug(`entering baseComposeIcon type=${type}`)
+  core.debug(`appIcon=${appIcon} mountIcon=${mountIcon}`)
   mountIcon = gm(mountIcon)
   appIcon = gm(appIcon)
+  core.debug('done gmifying')
 
   const [appIconSize, mountIconSize] = await Promise.all([
     promisify(appIcon.size.bind(appIcon))(),
     promisify(appIcon.size.bind(mountIcon))()
   ])
-
+  core.debug('got sizes')
   // Change the perspective of the app icon to match the mount drive icon
   appIcon = appIcon
     .out('-matte')
@@ -48,7 +50,7 @@ async function baseComposeIcon(type, appIcon, mountIcon, composedIcon) {
 
   const temporaryAppIconPath = temporaryFile({ extension: 'png' })
   await promisify(appIcon.write.bind(appIcon))(temporaryAppIconPath)
-
+  core.debug(`wrote temporary icon to ${temporaryAppIconPath}`)
   // Compose the two icons
   const iconGravityFactor = mountIconSize.height * 0.063
   mountIcon = mountIcon

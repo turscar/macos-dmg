@@ -96,6 +96,12 @@ export default async function composeIcon(
     icns.parse(await fs.readFile(baseIconPath)),
     ([key]) => icns.isImageType(key)
   )
+  let buff = await fs.readFile(appIconPath)
+  core.debug(`appIcon length=${buff.byteLength}`)
+  let ai = icns.parse(buff)
+  Object.keys(ai).forEach(key => {
+    core.debug(`ai type=${type}`)
+  })
   const appIcon = filterMap(
     icns.parse(await fs.readFile(appIconPath)),
     ([key]) => icns.isImageType(key)

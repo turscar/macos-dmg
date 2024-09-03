@@ -99,7 +99,7 @@ export default async function composeIcon(
   let buff = await fs.readFile(appIconPath)
   core.debug(`appIcon length=${buff.byteLength}`)
   let ai = icns.parse(buff)
-  Object.keys(ai).forEach(key => {
+  Object.keys(ai).forEach(type => {
     core.debug(`ai type=${type}`)
   })
   const appIcon = filterMap(

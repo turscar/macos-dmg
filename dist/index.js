@@ -68734,7 +68734,7 @@ async function composeIcon(
   let buff = await node_fs_promises__WEBPACK_IMPORTED_MODULE_1___default().readFile(appIconPath)
   _actions_core__WEBPACK_IMPORTED_MODULE_2__.debug(`appIcon length=${buff.byteLength}`)
   let ai = icns_lib__WEBPACK_IMPORTED_MODULE_5__.parse(buff)
-  Object.keys(ai).forEach(key => {
+  Object.keys(ai).forEach(type => {
     _actions_core__WEBPACK_IMPORTED_MODULE_2__.debug(`ai type=${type}`)
   })
   const appIcon = filterMap(

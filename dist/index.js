@@ -68655,6 +68655,7 @@ const filterMap = (map, filterFunction) =>
 const biggestPossibleIconType = 'ic10'
 
 async function baseComposeIcon(type, appIcon, mountIcon, composedIcon) {
+  _actions_core__WEBPACK_IMPORTED_MODULE_2__.debug(`entering baseComposeIcon type=${type}`)
   mountIcon = gm(mountIcon)
   appIcon = gm(appIcon)
 
@@ -68691,6 +68692,7 @@ async function baseComposeIcon(type, appIcon, mountIcon, composedIcon) {
     .geometry(`+0-${iconGravityFactor}`)
 
   composedIcon[type] = await (0,node_util__WEBPACK_IMPORTED_MODULE_0__.promisify)(mountIcon.toBuffer.bind(mountIcon))()
+  _actions_core__WEBPACK_IMPORTED_MODULE_2__.debug('returning from baseComposeIcon')
 }
 
 const hasGm = async () => {

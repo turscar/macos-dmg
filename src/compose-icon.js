@@ -20,6 +20,7 @@ const filterMap = (map, filterFunction) =>
 const biggestPossibleIconType = 'ic10'
 
 async function baseComposeIcon(type, appIcon, mountIcon, composedIcon) {
+  core.debug(`entering baseComposeIcon type=${type}`)
   mountIcon = gm(mountIcon)
   appIcon = gm(appIcon)
 
@@ -56,6 +57,7 @@ async function baseComposeIcon(type, appIcon, mountIcon, composedIcon) {
     .geometry(`+0-${iconGravityFactor}`)
 
   composedIcon[type] = await promisify(mountIcon.toBuffer.bind(mountIcon))()
+  core.debug('returning from baseComposeIcon')
 }
 
 const hasGm = async () => {

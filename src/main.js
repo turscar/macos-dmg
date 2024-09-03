@@ -93,7 +93,8 @@ export async function run() {
 
     let composedIconPath = dmgIcon
     if (composedIconPath === '' && appIcon) {
-      await getIcon(appIcon, baseDiskIconPath, appPath)
+      const appIconPath = path.join(appPath, 'Contents/Resources', appIcon)
+      await getIcon(appIconPath, baseDiskIconPath, appPath)
       composedIconPath = 'dmg-icon.icns'
     }
 

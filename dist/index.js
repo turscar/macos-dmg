@@ -68921,7 +68921,8 @@ async function run() {
 
     let composedIconPath = dmgIcon
     if (composedIconPath === '' && appIcon) {
-      await getIcon(appIcon, __nccwpck_require__.ab + "disk-icon.icns", appPath)
+      const appIconPath = node_path__WEBPACK_IMPORTED_MODULE_1___default().join(appPath, 'Contents/Resources', appIcon)
+      await getIcon(appIconPath, __nccwpck_require__.ab + "disk-icon.icns", appPath)
       composedIconPath = 'dmg-icon.icns'
     }
 

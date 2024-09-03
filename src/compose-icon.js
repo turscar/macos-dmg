@@ -2,8 +2,8 @@ import { promisify } from 'node:util'
 import fs from 'node:fs/promises'
 
 import * as core from '@actions/core'
-import exec from '@actions/exec'
-import io from '@actions/io'
+import * as exec from '@actions/exec'
+import * as io from '@actions/io'
 
 import icns from 'icns-lib'
 import baseGm from 'gm'
@@ -97,5 +97,19 @@ export default async function composeIcon(
       core.warning(`there is no base image for this type: ${type}`)
     })
   )
+
+  if (!composedIcon[biggestPossibleIconType]) {
+    // Make sure the highest-resolution variant is generated
+    const largestAppIcon = Object.values(appIcon).sort(
+      (a, b) => Buffer.byteLength(b) - Buffer.byteLength(a)
+    )[0]
+    await baseComposeIcon(
+      biggestPossibleIconType,
+      largestAppIcon,
+      baseDiskIcons[biggestPossibleIconType],
+      composedIcon
+    )
+  }
+
   await fs.writeFile(destinationPath, icns.format(composedIcon))
 }

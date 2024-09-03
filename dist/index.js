@@ -68694,7 +68694,7 @@ async function baseComposeIcon(type, appIcon, mountIcon, composedIcon) {
 }
 
 const hasGm = async () => {
-  const code = await _actions_exec__WEBPACK_IMPORTED_MODULE_3___default().exec('gm', ['-version'])
+  const code = await _actions_exec__WEBPACK_IMPORTED_MODULE_3__.exec('gm', ['-version'])
   return code === 0
 }
 
@@ -68705,14 +68705,14 @@ async function composeIcon(
 ) {
   if (!(await hasGm())) {
     _actions_core__WEBPACK_IMPORTED_MODULE_2__.info('installing GraphicsMagick')
-    const code = await _actions_exec__WEBPACK_IMPORTED_MODULE_3___default().exec('brew', ['install', 'graphicsmagick'])
+    const code = await _actions_exec__WEBPACK_IMPORTED_MODULE_3__.exec('brew', ['install', 'graphicsmagick'])
     if (code !== 0) {
       _actions_core__WEBPACK_IMPORTED_MODULE_2__.warning('failed to install GraphicsMagick')
     }
   }
   if (!(await hasGm())) {
     _actions_core__WEBPACK_IMPORTED_MODULE_2__.warning('GraphicsMagick not found, using default dmg icon')
-    await _actions_io__WEBPACK_IMPORTED_MODULE_4___default().cp(baseIconPath, destinationPath)
+    await _actions_io__WEBPACK_IMPORTED_MODULE_4__.cp(baseIconPath, destinationPath)
     return
   }
   const baseDiskIcons = filterMap(
@@ -68732,6 +68732,20 @@ async function composeIcon(
       _actions_core__WEBPACK_IMPORTED_MODULE_2__.warning(`there is no base image for this type: ${type}`)
     })
   )
+
+  if (!composedIcon[biggestPossibleIconType]) {
+    // Make sure the highest-resolution variant is generated
+    const largestAppIcon = Object.values(appIcon).sort(
+      (a, b) => Buffer.byteLength(b) - Buffer.byteLength(a)
+    )[0]
+    await baseComposeIcon(
+      biggestPossibleIconType,
+      largestAppIcon,
+      baseDiskIcons[biggestPossibleIconType],
+      composedIcon
+    )
+  }
+
   await node_fs_promises__WEBPACK_IMPORTED_MODULE_1___default().writeFile(destinationPath, icns_lib__WEBPACK_IMPORTED_MODULE_5__.format(composedIcon))
 }
 

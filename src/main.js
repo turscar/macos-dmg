@@ -93,7 +93,12 @@ export async function run() {
 
     let composedIconPath = dmgIcon
     if (composedIconPath === '' && appIcon) {
-      const appIconPath = path.join(appPath, 'Contents/Resources', appIcon)
+      const appIconName = appIcon.replace(/\.icns/, '')
+      const appIconPath = path.join(
+        appPath,
+        'Contents/Resources',
+        `${appIconName}.icns`
+      )
       await getIcon(appIconPath, baseDiskIconPath, appPath)
       composedIconPath = 'dmg-icon.icns'
     }
@@ -153,9 +158,9 @@ export async function run() {
   }
 }
 
-async function getIcon(appIcon, baseDiskIconPath, appPath) {
+async function getIcon(appIconPath, baseDiskIconPath, appPath) {
   const paths = ['dmg-icon.icns']
-  const iconHash = await hashFiles(`${appIcon}\n${baseDiskIconPath}`)
+  const iconHash = await hashFiles(`${appIconPath}\n${baseDiskIconPath}`)
   const hashKey = `dmg-icon-${iconHash}`
   const cacheKey = await cache.restoreCache(paths, hashKey)
   if (cacheKey) {
@@ -163,10 +168,6 @@ async function getIcon(appIcon, baseDiskIconPath, appPath) {
     return paths[0]
   }
   core.info('generating icon')
-  const appIconName = appIcon.replace(/\.icns/, '')
-  return composeIcon(
-    path.join(appPath, 'Contents/Resources', `${appIconName}.icns`),
-    baseDiskIconPath,
-    paths[0]
-  )
+
+  return composeIcon(appIconPath, baseDiskIconPath, paths[0])
 }

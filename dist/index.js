@@ -68921,7 +68921,12 @@ async function run() {
 
     let composedIconPath = dmgIcon
     if (composedIconPath === '' && appIcon) {
-      const appIconPath = node_path__WEBPACK_IMPORTED_MODULE_1___default().join(appPath, 'Contents/Resources', appIcon)
+      const appIconName = appIcon.replace(/\.icns/, '')
+      const appIconPath = node_path__WEBPACK_IMPORTED_MODULE_1___default().join(
+        appPath,
+        'Contents/Resources',
+        `${appIconName}.icns`
+      )
       await getIcon(appIconPath, __nccwpck_require__.ab + "disk-icon.icns", appPath)
       composedIconPath = 'dmg-icon.icns'
     }
@@ -68981,9 +68986,9 @@ async function run() {
   }
 }
 
-async function getIcon(appIcon, baseDiskIconPath, appPath) {
+async function getIcon(appIconPath, baseDiskIconPath, appPath) {
   const paths = ['dmg-icon.icns']
-  const iconHash = await (0,_actions_glob__WEBPACK_IMPORTED_MODULE_4__.hashFiles)(`${appIcon}\n${baseDiskIconPath}`)
+  const iconHash = await (0,_actions_glob__WEBPACK_IMPORTED_MODULE_4__.hashFiles)(`${appIconPath}\n${baseDiskIconPath}`)
   const hashKey = `dmg-icon-${iconHash}`
   const cacheKey = await _actions_cache__WEBPACK_IMPORTED_MODULE_5__.restoreCache(paths, hashKey)
   if (cacheKey) {
@@ -68991,12 +68996,8 @@ async function getIcon(appIcon, baseDiskIconPath, appPath) {
     return paths[0]
   }
   _actions_core__WEBPACK_IMPORTED_MODULE_2__.info('generating icon')
-  const appIconName = appIcon.replace(/\.icns/, '')
-  return (0,_compose_icon__WEBPACK_IMPORTED_MODULE_8__/* ["default"] */ .Z)(
-    node_path__WEBPACK_IMPORTED_MODULE_1___default().join(appPath, 'Contents/Resources', `${appIconName}.icns`),
-    baseDiskIconPath,
-    paths[0]
-  )
+
+  return (0,_compose_icon__WEBPACK_IMPORTED_MODULE_8__/* ["default"] */ .Z)(appIconPath, baseDiskIconPath, paths[0])
 }
 
 __webpack_async_result__();
